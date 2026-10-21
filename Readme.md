@@ -46,7 +46,7 @@ The application integrates AV equipment inventory and staff schedules into a uni
 ## Project Structure
 ```text
 .
-├── app.py
+├── av-app.py
 ├── requirements.txt
 ├── README.md
 ├── av_inventory.csv
@@ -69,16 +69,16 @@ pip install -r requirements.txt
 Create `.streamlit/secrets.toml` with the following structure:
 
 ```toml
-[usrs.MANAGER username here]
-psw = "your password here"
+[usrs.manager]
+psw = "REPLACE_WITH_YOUR_LOCAL_MANAGER_PASSWORD"
 is_admin = true
 
-[usrs.TECHNICIAN username here]
-psw = "your password here"
+[usrs.technician]
+psw = "REPLACE_WITH_YOUR_LOCAL_TECHNICIAN_PASSWORD"
 is_admin = false
 
 ```
-A template is named `secrets.example.toml` and is provided in the repository.
+Copy `.streamlit/secrets.example.toml` to `.streamlit/secrets.toml`, then set your own local usernames and passwords. Keep the real secrets file out of Git. The public demo accounts above are intentionally disposable; do not reuse them for other services.
 
 `config.toml` sets the Theme color for this project.
 
@@ -86,7 +86,7 @@ A template is named `secrets.example.toml` and is provided in the repository.
 Run the application:
 
 ```bash
-streamlit run app.py
+streamlit run av-app.py
 ```
 
 ## How to Test
@@ -135,7 +135,11 @@ Sample downloaded JSON File:
 ![Access Denied](screenshots/access_denied.png)
 
 
-## Notes
+## Scope and limitations
+
+This is an independent portfolio sample, not an official NYU service or deployment.
+
+The role checks and plaintext passwords in Streamlit secrets demonstrate a local workflow; this is not production identity management. Inventory and audit history use local CSV files, with no concurrent-write or durable database guarantees. Commands update simulated inventory status and generate JSON; there is no live device API integration.
 
 This application is intended for demonstration purposes only.
 
